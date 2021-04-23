@@ -6,7 +6,7 @@ class Department extends Sequelize.Model {}
 Department.init(
 	{
 		department_id: {
-			type: DataTypes.INTEGER,
+			type: Sequelize.DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true,
     	},
