@@ -1,0 +1,36 @@
+{
+  "name": "employeetracker",
+  "version": "1.0.0",
+  "description": "A command line app for managing employees and departments",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n8blake/EmployeeTracker.git"
+  },
+  "keywords": [
+    "employees",
+    "tracker",
+    "manager",
+    "teams",
+    "departments",
+    "budgets"
+  ],
+  "author": "n8blake",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/n8blake/EmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/n8blake/EmployeeTracker#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1",
+    "sequelize": "^6.6.2"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
