@@ -19,7 +19,8 @@ describe('Department', () => {
 			// }); 
 			// Department.create.mockResolvedValue({name: 'Test_Department'});
 			myDepartment = await Department.create({
-					name: 'Test_Department'
+					name: 'Test_Department',
+					department_id: 1
 			});
 			expect('department_id' in myDepartment).toBe(true);
 			expect('name' in myDepartment).toBe(true);
