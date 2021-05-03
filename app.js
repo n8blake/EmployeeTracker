@@ -138,9 +138,6 @@ class EmployeeTrackerApp {
 		departments.forEach(department => {
 			departmentNames.push(department.name);
 		});
-		// role name
-		// department
-		// salary
 		const newRoleQuestions = [
 			{
 				type: 'text',
@@ -303,8 +300,6 @@ class EmployeeTrackerApp {
 		];
 		return await inquirer.prompt(updateEmployeeRoleQuestions).then(async (data) => {
 			const newEmployeeRoleObj = {};
-			//newEmployeeRoleObj.first_name = data.firstName;
-			//newEmployeeRoleObj.last_name = data.lastName;
 			roles.forEach(role => {
 				if(role.title === data.role){
 					newEmployeeRoleObj.role_id = role.role_id;
@@ -314,7 +309,6 @@ class EmployeeTrackerApp {
 			employees.forEach(employee => {
 				const employeeName = employee.first_name + " " + employee.last_name;
 				if(employeeName === data.employee){
-					//newEmployeeRoleObj.employee_id = employee.employee_id;
 					id = employee.employee_id;
 				};
 			});
