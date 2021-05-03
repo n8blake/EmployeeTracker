@@ -6,7 +6,7 @@ class Employee extends Sequelize.Model {}
 Employee.init(
 	{
 		employee_id: {
-			type: DataTypes.INTEGER,
+			type: Sequelize.DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true,
     	},
@@ -18,9 +18,17 @@ Employee.init(
 		},
 		role_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'role',
+				key: 'role_id'
+			}
 		},
 		manager_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'employee', 
+				key: 'employee_id'
+			}
 		},
 	},
 	{

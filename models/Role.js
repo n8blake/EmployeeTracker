@@ -6,7 +6,7 @@ class Role extends Sequelize.Model {}
 Role.init(
 	{
 		role_id: {
-			type: DataTypes.INTEGER,
+			type: Sequelize.DataTypes.INTEGER,
 			primaryKey: true,
 			autoIncrement: true,
     	},
@@ -18,6 +18,10 @@ Role.init(
 		},
 		department_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'department',
+				key: 'department_id'
+			}
 		},
 	},
 	{
