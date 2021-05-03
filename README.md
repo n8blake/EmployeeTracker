@@ -27,6 +27,12 @@ DB_PASSWORD=???
 ## Usage Information
 run ```npm start``` and follow the prompts.
 
+Demo:
+<video controls="true">
+	<source src="demo.mov" type="video/mp4">
+	<source src="demo.mp4" type="video/mp4">
+</video>
+
 ## Contribution Guidelines
 If you wish to contribute to the project, email me.
 
