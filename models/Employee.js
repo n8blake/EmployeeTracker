@@ -18,9 +18,17 @@ Employee.init(
 		},
 		role_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'role',
+				key: 'role_id'
+			}
 		},
 		manager_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'employee', 
+				key: 'employee_id'
+			}
 		},
 	},
 	{

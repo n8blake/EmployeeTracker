@@ -18,6 +18,10 @@ Role.init(
 		},
 		department_id: {
 			type: Sequelize.DataTypes.INTEGER,
+			references: {
+				model: 'department',
+				key: 'department_id'
+			}
 		},
 	},
 	{

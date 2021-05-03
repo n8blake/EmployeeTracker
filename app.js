@@ -110,9 +110,16 @@ class EmployeeTrackerApp {
 
 	viewRoles = async () => {
 		let roles = [];
-		await Role.findAll().then(data => {
+		await Role.findAll({
+			include:[{model: Department}]
+		}).then(data => {
 			data.forEach(role => {
-				roles.push(role.dataValues);
+				const roleData = {};
+				roleData.title = role.title;
+				roleData.salary = role.salary;
+				roleData.department = role.department.dataValues.name;
+				roles.push(roleData);
+				//roles.push(role.dataValues);
 			});
 		});
 		console.table(roles);
@@ -136,8 +143,8 @@ class EmployeeTrackerApp {
 		const newRoleQuestions = [
 			{
 				type: 'text',
-				message: 'New Role Name:',
-				name: 'roleName'
+				message: 'New Role Title:',
+				name: 'title'
 			},
 			{
 				type: 'double', 
@@ -153,7 +160,7 @@ class EmployeeTrackerApp {
 		];
 		return await inquirer.prompt(newRoleQuestions).then(async (data) => {
 			const newRole = {};
-			newRole.title = data.roleName;
+			newRole.title = data.title;
 			newRole.salary = data.salary;
 			departments.forEach(department => {
 				if(department.name === data.department){
@@ -161,7 +168,7 @@ class EmployeeTrackerApp {
 				}
 			});
 			const role = await Role.create(newRole);
-			if(role) console.log("Create new role: " + role.name);
+			if(role) console.log("Create new role: " + role.title);
 			return role;
 		});
 
@@ -169,9 +176,18 @@ class EmployeeTrackerApp {
 
 	viewEmployees = async () => {
 		let employees = [];
-		await Employee.findAll().then(data => {
+		await Employee.findAll({
+			include:[{model: Role}, {model: Employee, as: 'Manager'}]
+		}).then(data => {
 			data.forEach(employee => {
-				employees.push(employee.dataValues);
+				const employeeData = {};
+				employeeData.name = employee.first_name + " " + employee.last_name;
+				employeeData.role = employee.role.dataValues.title;
+				if(employee.Manager){
+					employeeData.manager = employee.Manager.dataValues.first_name + " " + employee.Manager.dataValues.last_name;
+				}
+				employees.push(employeeData);
+				//employees.push(employee.dataValues);
 			});
 		});
 		console.table(employees);
@@ -187,7 +203,7 @@ class EmployeeTrackerApp {
 		});
 		let roleNames = [];
 		roles.forEach(role => {
-			roleNames.push(role.name);
+			roleNames.push(role.title);
 		});
 
 		let employees = [];

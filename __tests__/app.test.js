@@ -41,9 +41,9 @@ describe('App', () => {
 	describe('addRole', () => {
 		it('should add a role', async () => {
 			const role = {
-				title = 'Project Manager',
-				salary = 95000.00,
-				department = 'Development Department'
+				title : 'Project Manager',
+				salary : 95000.00,
+				department : 'Development Department'
 			};
 			inquirer.prompt.mockResolvedValue(role);
 			const newRole = await app.addRole();
