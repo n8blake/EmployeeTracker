@@ -14,6 +14,7 @@ class EmployeeTrackerApp {
 			'Add New Department': this.addDepartment,
 			'Add New Role': this.addRole,
 			'Add New Employee': this.addEmployee,
+			'Update an Employee\'s Role': this.updateEmployeeRole,
 			'Exit\n': this.exit
 		}
 	}
@@ -263,6 +264,63 @@ class EmployeeTrackerApp {
 		});
 		
 	}
+
+	updateEmployeeRole = async () => {
+		let roles = await Role.findAll().then(data => {
+			let _roles = [];
+			data.forEach(role => {
+				_roles.push(role.dataValues);
+			});
+			return _roles;
+		});
+		let roleNames = [];
+		roles.forEach(role => {
+			roleNames.push(role.title);
+		});
+		let employees = [];
+		await Employee.findAll().then(data => {
+			data.forEach(employee => {
+				employees.push(employee.dataValues);
+			});
+		});
+		let employeeNames = [];
+		employees.forEach(employee => {
+			employeeNames.push(employee.first_name + " " + employee.last_name);
+		});
+		const updateEmployeeRoleQuestions = [
+			{
+				type: 'list',
+				message: 'Which employee would you like to update? ',
+				name: 'employee',
+				choices: employeeNames,
+			},
+			{
+				type: 'list',
+				message: 'Which role would you like to assign them? ',
+				name: 'role', 
+				choices: roleNames
+			}
+		];
+		return await inquirer.prompt(updateEmployeeRoleQuestions).then(async (data) => {
+			const newEmployeeRoleObj = {};
+			//newEmployeeRoleObj.first_name = data.firstName;
+			//newEmployeeRoleObj.last_name = data.lastName;
+			roles.forEach(role => {
+				if(role.title === data.role){
+					newEmployeeRoleObj.role_id = role.role_id;
+				}
+			});
+			let id;
+			employees.forEach(employee => {
+				const employeeName = employee.first_name + " " + employee.last_name;
+				if(employeeName === data.employee){
+					//newEmployeeRoleObj.employee_id = employee.employee_id;
+					id = employee.employee_id;
+				};
+			});
+			return await Employee.update(newEmployeeRoleObj, {where: {employee_id: id}});
+		});
+	};
 
 	exit = () => {
 		return 'Exit';
